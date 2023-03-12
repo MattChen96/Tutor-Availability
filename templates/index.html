@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <meta charset="UTF-8">
+    <title>Applicazione Flask con form</title>
+    <style>
+      .calendar {
+        display: inline-block;
+        position: relative;
+      }
+
+      .calendar input[type="date"] {
+        width: 200px;
+        height: 40px;
+        font-size: 16px;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+      }
+
+      .calendar .icon {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 100%;
+        width: 50px;
+        text-align: center;
+        pointer-events: none;
+      }
+
+      .calendar .icon:before {
+        content: "\f073";
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        font-size: 20px;
+        line-height: 40px;
+        color: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Applicazione Flask con form</h1>
+    <form method="POST" enctype="multipart/form-data">
+      <label for="valore">Valore:</label>
+      <select id="valore" name="valore">
+        {% for v in lista_valori %}
+          <option value="{{ v }}">{{ v }}</option>
+        {% endfor %}
+      </select>
+      <br><br>
+      <label for="date_range">Range di date:</label>
+      <div class="calendar">
+        <input type="date" id="start_date" name="start_date" required>
+        <span class="icon"></span>
+      </div>
+      -
+      <div class="calendar">
+        <input type="date" id="end_date" name="end_date" required>
+        <span class="icon"></span>
+      </div>
+      <br><br>
+        <label for="file_csv">File CSV:</label>
+        <input type="file" class="form-control-file" id="file_csv" name="file_csv" accept=".csv" required>
+      <br><br>
+      <input type="submit" value="Genera file Excel">
+    </form>
+  </body>
+</html>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var startDateInput = document.getElementById('start_date');
+  var endDateInput = document.getElementById('end_date');
+  var startDateCalendar;
+  var endDateCalendar; // Definisci endDateCalendar nell'ambito globale del documento
+
+  // Aggiunge l'icona del calendario all'elemento input del calendario
+  var calendarIcon = '<i class="far fa-calendar-alt"></i>';
+  var addCalendarButton = function(input) {
+    var icon = document.createElement('span');
+    icon.classList.add('icon');
+    icon.innerHTML = calendarIcon;
+    input.parentNode.insertBefore(icon, input.nextSibling);
+  };
+
+  // Inizializza il widget del calendario per la selezione delle date
+  if (startDateInput && endDateInput) {
+    if (typeof flatpickr !== 'undefined') {
+      // flatpickr è già stato caricato tramite CDN
+      startDateCalendar = flatpickr(startDateInput, { // Definisci startDateCalendar
+        dateFormat: 'd/m/Y',
+        disableMobile: true,
+        locale: 'it',
+        onChange: function(selectedDates) {
+          endDateCalendar.set('minDate', selectedDates[0]); // Usa endDateCalendar definito globalmente
+        }
+      });
+
+      endDateCalendar = flatpickr(endDateInput, { // Definisci endDateCalendar globalmente
+        dateFormat: 'd/m/Y',
+        disableMobile: true,
+        onChange: function(selectedDates) {
+          startDateCalendar.set('maxDate', selectedDates[0]);
+        }
+        firstDayOfWeek: 1
+      });
+
+      addCalendarButton(startDateInput);
+      addCalendarButton(endDateInput);
+    } else {
+      // flatpickr non è stato caricato tramite CDN
+      console.error('flatpickr non è definito. Assicurati di aver incluso il CDN di flatpickr.');
+    }
+  }
+});
+
+
+
+</script>
