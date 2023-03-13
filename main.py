@@ -20,9 +20,10 @@ def home():
         file_csv = request.files['file_csv']
 
         # Elaborare il range di date inserito dall'utente
-        start_date = datetime.strptime(start_date, '%Y-%m-%d').strftime('%d/%m/%Y')
+        start_date = datetime.strptime(start_date, '%d/%m/%Y')
 
-        end_date = datetime.strptime(end_date, '%Y-%m-%d').strftime('%d/%m/%Y')
+        end_date = datetime.strptime(end_date, '%d/%m/%Y')
+        
         date_list = pd.date_range(start_date, end_date).strftime('%d/%m/%Y').tolist()
 
         df = pd.read_csv(file_csv)
