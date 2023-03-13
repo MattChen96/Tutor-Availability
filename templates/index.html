@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
+
   <head>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <meta charset="UTF-8">
-    <title>Applicazione Flask con form</title>
+    <title>Disponibilità Tutor</title>
     <style>
       .calendar {
         display: inline-block;
@@ -40,8 +41,10 @@
       }
     </style>
   </head>
+
+
   <body>
-    <h1>Applicazione Flask con form</h1>
+    <h1>Disponibilità Tutor</h1>
     <form method="POST" enctype="multipart/form-data">
       <label for="valore">Valore:</label>
       <select id="valore" name="valore">
@@ -61,14 +64,43 @@
         <span class="icon"></span>
       </div>
       <br><br>
+        <p>Scaricare il file .csv: File > Scarica > valori separati da virgola (.csv)</p>
         <label for="file_csv">File CSV:</label>
         <input type="file" class="form-control-file" id="file_csv" name="file_csv" accept=".csv" required>
       <br><br>
       <input type="submit" value="Genera file Excel">
     </form>
+    <br><br><br>
+    <div>
+        <p> Consigli:</p>
+            <ul>
+                <li>Bloccare le prime colonne del file excel per avere una visione più fluida
+                    <ul>
+                        <li>Visualizza > Blocca riquadri > Blocca riquadri</li>
+                        <li>-- per bloccare le prime due colonne è necessario selezionare la terza colonna</li>
+                    </ul>
+                </li>
+                <li>Potrebbe essere necessario sbloccare la visualizzazione protetta:
+                    <ul>
+                        <li>Fare clic su File > Opzioni</li>
+                        <li>Fare clic su Centro protezione > Impostazioni Centro protezione > Visualizzazione protetta.</li>
+                    </ul>
+                </li>
+            </ul>
+    </div>
+
+    <!-- Footer -->
+    <footer style="position: fixed; bottom: 0; left: 0; right: 0; background-color: #ccc;">
+      <p>Github: <a href="https://github.com/MattChen96/Tutor-Availability">Link</a></p>
+    </footer>
   </body>
+
+
 </html>
+
+
 <script>
+
 document.addEventListener('DOMContentLoaded', function() {
   var startDateInput = document.getElementById('start_date');
   var endDateInput = document.getElementById('end_date');
@@ -114,7 +146,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 });
-
-
 
 </script>
