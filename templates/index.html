@@ -100,7 +100,6 @@
 
 
 <script>
-
 document.addEventListener('DOMContentLoaded', function() {
   var startDateInput = document.getElementById('start_date');
   var endDateInput = document.getElementById('end_date');
@@ -120,31 +119,34 @@ document.addEventListener('DOMContentLoaded', function() {
   if (startDateInput && endDateInput) {
     if (typeof flatpickr !== 'undefined') {
       // flatpickr è già stato caricato tramite CDN
-      startDateCalendar = flatpickr(startDateInput, { // Definisci startDateCalendar
-        dateFormat: 'd/m/Y',
-        disableMobile: true,
-        locale: 'it',
-        onChange: function(selectedDates) {
-          endDateCalendar.set('minDate', selectedDates[0]); // Usa endDateCalendar definito globalmente
-        }
-      });
+        startDateCalendar = flatpickr(startDateInput, {
+          dateFormat: 'd/m/Y',
+          disableMobile: true,
+          onChange: function(selectedDates) {
+            endDateCalendar.set('minDate', selectedDates[0]);
+          },
+          locale: {
+              "firstDayOfWeek": 1 // start week on Monday
+          }
+        });
 
-      endDateCalendar = flatpickr(endDateInput, { // Definisci endDateCalendar globalmente
-        dateFormat: 'd/m/Y',
-        disableMobile: true,
-        onChange: function(selectedDates) {
-          startDateCalendar.set('maxDate', selectedDates[0]);
-        }
-        firstDayOfWeek: 1
-      });
+        endDateCalendar = flatpickr(endDateInput, {
+          dateFormat: 'd/m/Y',
+          disableMobile: true,
+          onChange: function(selectedDates) {
+            startDateCalendar.set('maxDate', selectedDates[0]);
+          },
+          locale: {
+              "firstDayOfWeek": 1 // start week on Monday
+          }
+        });
 
       addCalendarButton(startDateInput);
       addCalendarButton(endDateInput);
     } else {
       // flatpickr non è stato caricato tramite CDN
-      console.error('flatpickr non è definito. Assicurati di aver incluso il CDN di flatpickr.');
+      console.log('Flatpickr non è stato trovato');
     }
   }
 });
-
 </script>
