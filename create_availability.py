@@ -13,8 +13,9 @@ def clear(df):
 
 
 def create_availability_excel(df, data_da_filtrare, gruppo):
-
-    file_path_output = os.path.join(os.getcwd(), "output.xlsx")
+    
+    #file_path_output = os.path.join(os.getcwd(), "output.xlsx")
+    file_path_output = "/home/mattchen2/ctutors-site/output.xlsx"
 
     if not os.path.isfile(file_path_output):
         # se il file non esiste, crea un nuovo file Excel e aggiungi il primo foglio
@@ -67,7 +68,7 @@ def create_availability_excel(df, data_da_filtrare, gruppo):
         to_index = time_blocks.index(to_time.strftime('%H:%M'))
 
 
-        for i in range(from_index, to_index):
+        for i in range(from_index -1 , to_index):
             availability[i] = name
         if name in availability_dict:
             availability_dict[name] = [max(x) for x in zip(availability_dict[name], availability)]
@@ -89,6 +90,5 @@ def create_availability_excel(df, data_da_filtrare, gruppo):
     with pd.ExcelWriter(file_path_output, engine='openpyxl', mode='a', if_sheet_exists='replace') as writer:
         df_availability.to_excel(writer, sheet_name=data_da_filtrare.replace('/', '-'), index=False)
 
-    return file_path_output  # leggi il contenuto del file Excel come oggetto bytes
-
+    return file_path_output
 
