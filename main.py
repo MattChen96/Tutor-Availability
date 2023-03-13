@@ -34,8 +34,19 @@ def home():
 
         return send_file(output, as_attachment=True, download_name= f"disponibilità_{gruppo}.xlsx" ,mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' )
 
+
     return render_template('index.html', lista_valori=lista_valori )
+
+@app.after_request
+def delete_file(response):
+    file_path_output =  "/home/mattchen2/ctutors-site/output.xlsx"
+    if os.path.exists(file_path_output):
+        try:
+            os.remove(file_path_output)
+        except Exception as error:
+            app.logger.error("Errore durante l'eliminazione del file: ", error)
+    return response
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
