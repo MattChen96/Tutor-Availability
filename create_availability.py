@@ -39,7 +39,7 @@ def create_availability_excel(df, data_da_filtrare, gruppo):
     availability_dict = {}
     for _, row in df.iterrows():
         name = row['Cognome e Nome']
-        availability = [''] * len(time_blocks)
+        availability = [' '] * len(time_blocks)
         from_time = datetime.strptime(row['Da quando?'], '%H.%M.%S')
 
         if from_time.minute < 30:
