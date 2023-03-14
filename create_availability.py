@@ -57,6 +57,9 @@ def create_availability_excel(df, data_da_filtrare, gruppo):
             rounded_time = to_time.replace(minute=0, second=0, microsecond=0)
 
         to_time = rounded_time
+        
+        if from_time.time() >= datetime.strptime('19:30', '%H:%M').time() or to_time.time() <= datetime.strptime('07:30', '%H:%M').time():
+            continue  # salta la riga se la disponibilità cade durante la fascia notturna
 
         if from_time.time() < datetime.strptime('7:30', '%H:%M').time():
             from_time = datetime.strptime('7:30', '%H:%M')
