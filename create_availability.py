@@ -2,7 +2,10 @@ import pandas as pd
 from datetime import datetime, timedelta
 import os.path
 from openpyxl import Workbook
+from openpyxl.utils import get_column_letter
 from io import BytesIO
+
+
 
 def clear(df):
     df['Informazioni cronologiche'] = pd.to_datetime(df['Informazioni cronologiche'], format='%d/%m/%Y %H.%M.%S')
@@ -13,7 +16,7 @@ def clear(df):
 
 
 def create_availability_excel(df, data_da_filtrare, gruppo):
-    
+
     #file_path_output = os.path.join(os.getcwd(), "output.xlsx")
     file_path_output = "/home/mattchen2/ctutors-site/output.xlsx"
 
@@ -28,8 +31,8 @@ def create_availability_excel(df, data_da_filtrare, gruppo):
     df = df[(df['Data'] == data_da_filtrare) & (df['Gruppo Tutor'] == gruppo_tutor_da_filtrare)]
 
     # crea una lista di tutte le fasce orarie divisi in blocchi da 30 minuti
-    start_time = datetime.strptime('7:30', '%H:%M')
-    end_time = datetime.strptime('19:30', '%H:%M')
+    start_time = datetime.strptime('8:00', '%H:%M')
+    end_time = datetime.strptime('19:00', '%H:%M')
     time_blocks = []
     while start_time <= end_time:
         time_blocks.append(start_time.strftime('%H:%M'))
@@ -57,15 +60,16 @@ def create_availability_excel(df, data_da_filtrare, gruppo):
             rounded_time = to_time.replace(minute=0, second=0, microsecond=0)
 
         to_time = rounded_time
-        
-        if from_time.time() >= datetime.strptime('19:30', '%H:%M').time() or to_time.time() <= datetime.strptime('07:30', '%H:%M').time():
+
+
+        if from_time.time() >= datetime.strptime('19:00', '%H:%M').time() or to_time.time() <= datetime.strptime('08:00', '%H:%M').time():
             continue  # salta la riga se la disponibilità cade durante la fascia notturna
 
-#         if from_time.time() < datetime.strptime('7:30', '%H:%M').time():
-#             from_time = datetime.strptime('7:30', '%H:%M')
+        if from_time.time() < datetime.strptime('8:00', '%H:%M').time():
+            from_time = datetime.strptime('8:00', '%H:%M')
 
-#         if to_time.time() > datetime.strptime('19:30', '%H:%M').time():
-#             to_time = datetime.strptime('19:30', '%H:%M')
+        if to_time.time() > datetime.strptime('19:00', '%H:%M').time():
+            to_time = datetime.strptime('19:00', '%H:%M')
 
         from_index = time_blocks.index(from_time.strftime('%H:%M'))
         to_index = time_blocks.index(to_time.strftime('%H:%M'))
@@ -84,14 +88,16 @@ def create_availability_excel(df, data_da_filtrare, gruppo):
     df_availability = df_availability.reset_index()
 
     # Aggiungi colonna 'Fine' che indica la fine del blocco di tempo
-    time_blocks.append('19:30')
+    time_blocks.append('19:00')
     fine_blocks = [time_blocks[i + 1] for i in range(len(time_blocks) - 1)]
 
 
     df_availability.insert(1, "Fine", fine_blocks)
 
+
     with pd.ExcelWriter(file_path_output, engine='openpyxl', mode='a', if_sheet_exists='replace') as writer:
         df_availability.to_excel(writer, sheet_name=data_da_filtrare.replace('/', '-'), index=False)
 
     return file_path_output
+
 
