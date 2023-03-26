@@ -23,7 +23,7 @@ def home():
         start_date = datetime.strptime(start_date, '%d/%m/%Y')
 
         end_date = datetime.strptime(end_date, '%d/%m/%Y')
-        
+
         date_list = pd.date_range(start_date, end_date).strftime('%d/%m/%Y').tolist()
 
         df = pd.read_csv(file_csv)
@@ -40,7 +40,7 @@ def home():
 
 @app.after_request
 def delete_file(response):
-    file_path_output =  "/home/mattchen2/ctutors-site/output.xlsx"
+    file_path_output =  "/home/mattchen2/Tutor-Availability/output.xlsx"
     if os.path.exists(file_path_output):
         try:
             os.remove(file_path_output)
