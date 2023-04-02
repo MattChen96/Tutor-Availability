@@ -1,0 +1,32 @@
+.calendar {
+    display: inline-block;
+    position: relative;
+}
+
+.calendar input[type="date"] {
+    width: 200px;
+    height: 40px;
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.calendar .icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 50px;
+    text-align: center;
+    pointer-events: none;
+}
+
+.calendar .icon:before {
+    content: "\f073";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size: 20px;
+    line-height: 40px;
+    color: #666;
+}

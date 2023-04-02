@@ -3,57 +3,22 @@
 
   <head>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="static/style.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <meta charset="UTF-8">
     <title>Disponibilità Tutor</title>
-    <style>
-      .calendar {
-        display: inline-block;
-        position: relative;
-      }
-
-      .calendar input[type="date"] {
-        width: 200px;
-        height: 40px;
-        font-size: 16px;
-        padding: 10px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-      }
-
-      .calendar .icon {
-        position: absolute;
-        top: 0;
-        right: 0;
-        height: 100%;
-        width: 50px;
-        text-align: center;
-        pointer-events: none;
-      }
-
-      .calendar .icon:before {
-        content: "\f073";
-        font-family: "Font Awesome 5 Free";
-        font-weight: 900;
-        font-size: 20px;
-        line-height: 40px;
-        color: #666;
-      }
-    </style>
   </head>
-
-
   <body>
     <h1>Disponibilità Tutor</h1>
     <form method="POST" enctype="multipart/form-data">
-      <label for="valore">Valore:</label>
+      <label for="valore">Gruppo:</label>
       <select id="valore" name="valore">
         {% for v in lista_valori %}
           <option value="{{ v }}">{{ v }}</option>
         {% endfor %}
       </select>
       <br><br>
-      <label for="date_range">Range di date:</label>
+      <label for="date_range">Date:</label>
       <div class="calendar">
         <input type="date" id="start_date" name="start_date" required>
         <span class="icon"></span>
@@ -64,7 +29,7 @@
         <span class="icon"></span>
       </div>
       <br><br>
-        <p>Scaricare il file .csv: File > Scarica > valori separati da virgola (.csv)</p>
+        <p>Scaricare il file .csv: Nel File Google >> File > Scarica > valori separati da virgola (.csv)</p>
         <label for="file_csv">File CSV:</label>
         <input type="file" class="form-control-file" id="file_csv" name="file_csv" accept=".csv" required>
       <br><br>
