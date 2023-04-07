@@ -18,55 +18,57 @@
         <a href ="/aule"> <button class="active">Aule</button> </a>
       </div>
     </div>
-    <h1>Disponibilità Tutor</h1>
-    <form method="POST" enctype="multipart/form-data">
-      <label for="valore">Gruppo:</label>
-      <select id="valore" name="valore">
-        {% for v in lista_valori %}
-          <option value="{{ v }}">{{ v }}</option>
-        {% endfor %}
-      </select>
-      <br><br>
-      <label for="date_range">Date:</label>
-      <div class="calendar">
-        <input type="date" id="start_date" name="start_date" required>
-        <span class="icon"></span>
-      </div>
-      -
-      <div class="calendar">
-        <input type="date" id="end_date" name="end_date" required>
-        <span class="icon"></span>
-      </div>
-      <br><br>
-        <p>Scaricare il file .csv: Nel File Google >> File > Scarica > valori separati da virgola (.csv)</p>
-        <label for="file_csv">File CSV:</label>
-        <input type="file" class="form-control-file" id="file_csv" name="file_csv" accept=".csv" required>
-      <br><br>
-      <input type="submit" value="Genera file Excel">
-    </form>
-    <br><br><br>
-    <div>
-        <p> Consigli:</p>
-            <ul>
-                <li>Bloccare le prime colonne del file excel per avere una visione più fluida
-                    <ul>
-                        <li>Visualizza > Blocca riquadri > Blocca riquadri</li>
-                        <li>-- per bloccare le prime due colonne è necessario selezionare la terza colonna</li>
-                    </ul>
-                </li>
-                <li>Potrebbe essere necessario sbloccare la visualizzazione protetta:
-                    <ul>
-                        <li>Fare clic su File > Opzioni</li>
-                        <li>Fare clic su Centro protezione > Impostazioni Centro protezione > Visualizzazione protetta.</li>
-                    </ul>
-                </li>
-            </ul>
-    </div>
+    <div class="container">
+        <h1>Disponibilità Tutor</h1>
+        <form method="POST" enctype="multipart/form-data">
+          <label for="valore">Gruppo:</label>
+          <select id="valore" name="valore">
+            {% for v in lista_valori %}
+              <option value="{{ v }}">{{ v }}</option>
+            {% endfor %}
+          </select>
+          <br><br>
+          <label for="date_range">Date:</label>
+          <div class="calendar">
+            <input type="date" id="start_date" name="start_date" required>
+            <span class="icon"></span>
+          </div>
+          -
+          <div class="calendar">
+            <input type="date" id="end_date" name="end_date" required>
+            <span class="icon"></span>
+          </div>
+          <br><br>
+            <p>Scaricare il file .csv: Nel File Google >> File > Scarica > valori separati da virgola (.csv)</p>
+            <label for="file_csv">File CSV:</label>
+            <input type="file" class="form-control-file" id="file_csv" name="file_csv" accept=".csv" required>
+          <br><br>
+          <input type="submit" value="Genera file Excel">
+        </form>
+        <br><br><br>
+        <div>
+            <p> Consigli:</p>
+                <ul>
+                    <li>Bloccare le prime colonne del file excel per avere una visione più fluida
+                        <ul>
+                            <li>Visualizza > Blocca riquadri > Blocca riquadri</li>
+                            <li>-- per bloccare le prime due colonne è necessario selezionare la terza colonna</li>
+                        </ul>
+                    </li>
+                    <li>Potrebbe essere necessario sbloccare la visualizzazione protetta:
+                        <ul>
+                            <li>Fare clic su File > Opzioni</li>
+                            <li>Fare clic su Centro protezione > Impostazioni Centro protezione > Visualizzazione protetta.</li>
+                        </ul>
+                    </li>
+                </ul>
+        </div>
 
-    <!-- Footer -->
-    <footer style="position: fixed; bottom: 0; left: 0; right: 0; background-color: #ccc;">
-      <p>Github: <a href="https://github.com/MattChen96/Tutor-Availability">Link</a></p>
-    </footer>
+        <!-- Footer -->
+        <footer style="position: fixed; bottom: 0; left: 0; right: 0; background-color: #ccc;">
+          <p>Github: <a href="https://github.com/MattChen96/Tutor-Availability">Link</a></p>
+        </footer>
+    </div>
   </body>
 
 
