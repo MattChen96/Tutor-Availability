@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, send_file, after_this_request
-from datetime import datetime
+from datetime import datetime , timedelta
 import pandas as pd
 from create_availability import create_availability_excel
 import os
@@ -48,6 +48,29 @@ def delete_file(response):
             app.logger.error("Errore durante l'eliminazione del file: ", error)
     return response
 
+
+# esempio di dizionario aule-identificativi
+dizionario_aule = {
+    "LAB 111": "358",
+    "LAB 311": "175",
+    "LAB 4A1": "73"
+}
+
+@app.route('/aule')
+def index():
+    # ottieni la data corrente
+    today = datetime.now()
+    week = timedelta(weeks=1)
+    next_week = today + week
+
+    # genera la lista di bottoni di link
+    links = []
+    for aula, identificativo in dizionario_aule.items():
+        link = f"http://gestionespazi.didattica.unimib.it/index.php?transpose=&vista=week&area=35&content=view_prenotazioni&_lang=it&day={next_week.day}&month={next_week.month}&year={next_week.year}&room={identificativo}"
+        links.append((aula, link))
+
+    # passa i bottoni alla pagina HTML
+    return render_template('aule.html', links=links)
 
 if __name__ == '__main__':
     app.run()

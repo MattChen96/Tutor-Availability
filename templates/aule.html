@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Elenco aule</title>
+  </head>
+  <body>
+      <div class="dashboard">
+      <div>
+        <h1></h1>
+      </div>
+      <div>
+        <a href = "/"> <button class="active">Home</button> </a>
+        <a href ="/aule"> <button class="active">Aule</button> </a>
+      </div>
+    </div>
+
+    <h1>Elenco aule</h1>
+    <h2>Pagine Aule delle prenotazioni di settimana prossima</h2>
+    <ul>
+    {% for aula, link in links %}
+      <li><a href="{{ link }}">{{ aula }}</a></li>
+    {% endfor %}
+    </ul>
+  </body>
+</html>
