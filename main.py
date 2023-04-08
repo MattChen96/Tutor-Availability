@@ -55,11 +55,11 @@ with open('/home/mattchen2/Tutor-Availability/data/aule.json') as f:
 
 # definisci i gruppi di aule in base al nome
 gruppi_aule = {
-    "Laboratori U4": ["LAB 111", "LAB 311"],
-    "Laboratori U16": ["LAB 4A1", "LAB 4A1"],
-    "Laboratori U7": ["LAB 4A1", "LAB 4A1"],
-    "Laboratori U9": ["LAB 4A1", "LAB 4A1"],
-    "Laboratori U14": ["LAB 4A1", "LAB 4A1"]
+    "Laboratori U4": ["111", "311","4A1"],
+    "Laboratori U16": ["1631", "1641"],
+    "Laboratori U7": ["711","712","713","714","715","716","717","718","719"],
+    "Laboratori U9": [],
+    "Laboratori U14": ["1401", "14A1"]
 }
 
 

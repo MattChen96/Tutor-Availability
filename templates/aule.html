@@ -20,10 +20,10 @@
       <div class="row">
       {% for gruppo, links in gruppi_links %}
         <div class="col-md">
-          <h2>{{ gruppo }}</h2>
+          <h3>{{ gruppo }}</h3>
           <ul>
           {% for aula, link in links %}
-            <li><a href="{{ link }}">{{ aula }}</a></li>
+            <li><a href="{{ link }}">LAB {{ aula }}</a></li>
           {% endfor %}
           </ul>
         </div>
