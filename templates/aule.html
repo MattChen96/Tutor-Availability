@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="static/style.css">
     <title>Elenco aule</title>
   </head>
@@ -15,13 +16,19 @@
       </div>
     </div>
     <div class="container">
-        <h1>Elenco aule</h1>
-        <h2>Pagine Aule delle prenotazioni di settimana prossima</h2>
-        <ul>
-        {% for aula, link in links %}
-          <li><a href="{{ link }}">{{ aula }}</a></li>
-        {% endfor %}
-        </ul>
+      <h1>Elenco aule</h1>
+      <div class="row">
+      {% for gruppo, links in gruppi_links %}
+        <div class="col-md">
+          <h2>{{ gruppo }}</h2>
+          <ul>
+          {% for aula, link in links %}
+            <li><a href="{{ link }}">{{ aula }}</a></li>
+          {% endfor %}
+          </ul>
+        </div>
+      {% endfor %}
+      </div>
     </div>
   </body>
 </html>

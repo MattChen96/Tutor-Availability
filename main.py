@@ -3,6 +3,7 @@ from datetime import datetime , timedelta
 import pandas as pd
 from create_availability import create_availability_excel
 import os
+import json
 
 app = Flask(__name__)
 
@@ -49,28 +50,37 @@ def delete_file(response):
     return response
 
 
-# esempio di dizionario aule-identificativi
-dizionario_aule = {
-    "LAB 111": "358",
-    "LAB 311": "175",
-    "LAB 4A1": "73"
+with open('/home/mattchen2/Tutor-Availability/data/aule.json') as f:
+    aule = json.load(f)
+
+# definisci i gruppi di aule in base al nome
+gruppi_aule = {
+    "Laboratori U4": ["LAB 111", "LAB 311"],
+    "Laboratori U16": ["LAB 4A1", "LAB 4A1"],
+    "Laboratori U7": ["LAB 4A1", "LAB 4A1"],
+    "Laboratori U9": ["LAB 4A1", "LAB 4A1"],
+    "Laboratori U14": ["LAB 4A1", "LAB 4A1"]
 }
 
+
 @app.route('/aule')
-def index():
+def aule():
     # ottieni la data corrente
     today = datetime.now()
     week = timedelta(weeks=1)
     next_week = today + week
 
-    # genera la lista di bottoni di link
-    links = []
-    for aula, identificativo in dizionario_aule.items():
-        link = f"http://gestionespazi.didattica.unimib.it/index.php?transpose=&vista=week&area=35&content=view_prenotazioni&_lang=it&day={next_week.day}&month={next_week.month}&year={next_week.year}&room={identificativo}"
-        links.append((aula, link))
+    # genera una lista di tuple (gruppo, lista di bottoni di link)
+    gruppi_links = []
+    for gruppo, aule_gruppo in gruppi_aule.items():
+        links = []
+        for aula in aule_gruppo:
+            link = f"http://gestionespazi.didattica.unimib.it/index.php?transpose=&vista=week&area=35&content=view_prenotazioni&_lang=it&day={next_week.day}&month={next_week.month}&year={next_week.year}&room={aule[aula]}"
+            links.append((aula, link))
+        gruppi_links.append((gruppo, links))
 
-    # passa i bottoni alla pagina HTML
-    return render_template('aule.html', links=links)
+    # passa i gruppi di bottoni alla pagina HTML
+    return render_template('aule.html', gruppi_links=gruppi_links)
 
 if __name__ == '__main__':
     app.run()
