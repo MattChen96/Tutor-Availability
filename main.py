@@ -64,7 +64,7 @@ gruppi_aule = {
 
 
 @app.route('/aule')
-def aule():
+def room():
     # ottieni la data corrente
     today = datetime.now()
     week = timedelta(weeks=1)
