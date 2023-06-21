@@ -1,128 +1,188 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <link rel="stylesheet" href="static/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <meta charset="UTF-8">
-    <title>Disponibilità Tutor</title>
-  </head>
-  <body>
-    <div class="dashboard">
-      <div>
-        <h1></h1>
-      </div>
-      <div>
-        <a href = "/"> <button class="active">Home</button> </a>
-        <a href ="/aule"> <button class="active">Aule</button> </a>
-      </div>
-    </div>
-    <div class="container">
-        <h1>Disponibilità Tutor</h1>
-        <form method="POST" enctype="multipart/form-data">
-          <label for="valore">Gruppo:</label>
-          <select id="valore" name="valore">
-            {% for v in lista_valori %}
-              <option value="{{ v }}">{{ v }}</option>
-            {% endfor %}
-          </select>
-          <br><br>
-          <label for="date_range">Date:</label>
-          <div class="calendar">
-            <input type="date" id="start_date" name="start_date" required>
-            <span class="icon"></span>
-          </div>
-          -
-          <div class="calendar">
-            <input type="date" id="end_date" name="end_date" required>
-            <span class="icon"></span>
-          </div>
-          <br><br>
-            <p>Scaricare il file .csv: Nel File Google >> File > Scarica > valori separati da virgola (.csv)</p>
-            <label for="file_csv">File CSV:</label>
-            <input type="file" class="form-control-file" id="file_csv" name="file_csv" accept=".csv" required>
-          <br><br>
-          <input type="submit" value="Genera file Excel">
-        </form>
-        <br><br><br>
-        <div>
-            <p> Consigli:</p>
-                <ul>
-                    <li>Bloccare le prime colonne del file excel per avere una visione più fluida
-                        <ul>
-                            <li>Visualizza > Blocca riquadri > Blocca riquadri</li>
-                            <li>-- per bloccare le prime due colonne è necessario selezionare la terza colonna</li>
-                        </ul>
-                    </li>
-                    <li>Potrebbe essere necessario sbloccare la visualizzazione protetta:
-                        <ul>
-                            <li>Fare clic su File > Opzioni</li>
-                            <li>Fare clic su Centro protezione > Impostazioni Centro protezione > Visualizzazione protetta.</li>
-                        </ul>
-                    </li>
-                </ul>
-        </div>
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <link rel="stylesheet" href="static/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <meta charset="UTF-8">
+  <title>Disponibilità Tutor</title>
+  <style>
+    .container {
+      text-align: center;
+    }
 
-        <!-- Footer -->
-        <footer style="position: fixed; bottom: 0; left: 0; right: 0; background-color: #ccc;">
-          <p>Github: <a href="https://github.com/MattChen96/Tutor-Availability">Link</a></p>
-        </footer>
-    </div>
-  </body>
+    .dropzone {
+      border: 2px dashed #999;
+      padding: 20px;
+      cursor: pointer;
+      display: inline-block;
+    }
 
+    .dropzone.dragover {
+      background-color: #f1f1f1;
+    }
+
+    .file-input-label {
+      font-size: 18px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="dashboard">
+    <div>
+      <h1></h1>
+    </div>
+    <div>
+      <a href="/"> <button class="active">Home</button> </a>
+      <a href="/aule"> <button class="active">Aule</button> </a>
+    </div>
+  </div>
+  <div class="container">
+    <h1>Disponibilità Tutor</h1>
+    <form method="POST" enctype="multipart/form-data">
+      <label for="valore">Gruppo:</label>
+      <select id="valore" name="valore">
+        {% for v in lista_valori %}
+        <option value="{{ v }}">{{ v }}</option>
+        {% endfor %}
+      </select>
+      <br><br>
+      <label for="date_range">Date:</label>
+      <div class="calendar">
+        <input type="date" id="start_date" name="start_date" required>
+        <span class="icon"></span>
+      </div>
+      -
+      <div class="calendar">
+        <input type="date" id="end_date" name="end_date" required>
+        <span class="icon"></span>
+      </div>
+      <br><br>
+      <p>Scaricare il file .csv: Nel File Google >> File > Scarica > valori separati da virgola (.csv)</p>
+      <div class="dropzone" onclick="document.getElementById('file_csv').click()">
+        <div class="file-input-label">Trascina qui il file o clicca per selezionare un file</div>
+        <input type="file" id="file_csv" name="file_csv" accept=".csv" style="display: none;">
+      </div>
+      <br><br>
+      <input type="submit" value="Genera file Excel">
+    </form>
+    <br><br><br>
+    <div>
+      <p>Consigli:</p>
+      <ul>
+        <li>Bloccare le prime colonne del file excel per avere una visione più fluida
+          <ul>
+            <li>Visualizza > Blocca riquadri > Blocca riquadri</li>
+            <li>-- per bloccare le prime due colonne è necessario selezionare la terza colonna</li>
+          </ul>
+        </li>
+        <li>Potrebbe essere necessario sbloccare la visualizzazione protetta:
+          <ul>
+            <li>Fare clic su File > Opzioni</li>
+            <li>Fare clic su Centro protezione > Impostazioni Centro protezione > Visualizzazione protetta.</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Footer -->
+    <footer style="position: fixed; bottom: 0; left: 0; right: 0; background-color: #ccc;">
+      <p>Github: <a href="https://github.com/MattChen96/Tutor-Availability">Link</a></p>
+    </footer>
+  </div>
+  
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var fileInput = document.getElementById('file_csv');
+      var fileInputLabel = document.querySelector('.file-input-label');
+      var isDraggingFile = false;
+
+      fileInputLabel.addEventListener('click', function () {
+        if (!isDraggingFile) {
+          fileInput.click();
+        }
+      });
+
+      fileInput.addEventListener('change', function () {
+        var fileName = fileInput.value.split('\\').pop();
+        fileInputLabel.innerText = fileName;
+      });
+
+      var container = document.querySelector('.container');
+
+      container.addEventListener('dragover', function (e) {
+        e.preventDefault();
+        container.classList.add('dragover');
+        isDraggingFile = true;
+      });
+
+      container.addEventListener('dragleave', function (e) {
+        e.preventDefault();
+        container.classList.remove('dragover');
+        isDraggingFile = false;
+      });
+
+      container.addEventListener('drop', function (e) {
+        e.preventDefault();
+        container.classList.remove('dragover');
+        isDraggingFile = false;
+
+        var files = e.dataTransfer.files;
+        if (files.length > 0) {
+          fileInput.files = files;
+          var fileName = files[0].name;
+          fileInputLabel.innerText = fileName;
+        }
+      });
+
+      var startDateInput = document.getElementById('start_date');
+      var endDateInput = document.getElementById('end_date');
+      var startDateCalendar;
+      var endDateCalendar;
+
+      var calendarIcon = '<i class="far fa-calendar-alt"></i>';
+      var addCalendarButton = function (input) {
+        var icon = document.createElement('span');
+        icon.classList.add('icon');
+        icon.innerHTML = calendarIcon;
+        input.parentNode.insertBefore(icon, input.nextSibling);
+      };
+
+      if (startDateInput && endDateInput) {
+        if (typeof flatpickr !== 'undefined') {
+          startDateCalendar = flatpickr(startDateInput, {
+            dateFormat: 'd/m/Y',
+            disableMobile: true,
+            onChange: function (selectedDates) {
+              endDateCalendar.set('minDate', selectedDates[0]);
+            },
+            locale: {
+              "firstDayOfWeek": 1
+            }
+          });
+
+          endDateCalendar = flatpickr(endDateInput, {
+            dateFormat: 'd/m/Y',
+            disableMobile: true,
+            onChange: function (selectedDates) {
+              startDateCalendar.set('maxDate', selectedDates[0]);
+            },
+            locale: {
+              "firstDayOfWeek": 1
+            }
+          });
+
+          addCalendarButton(startDateInput);
+          addCalendarButton(endDateInput);
+        } else {
+          console.log('Flatpickr non è stato trovato');
+        }
+      }
+    });
+  </script>
+  
+</body>
 
 </html>
-
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  var startDateInput = document.getElementById('start_date');
-  var endDateInput = document.getElementById('end_date');
-  var startDateCalendar;
-  var endDateCalendar; // Definisci endDateCalendar nell'ambito globale del documento
-
-  // Aggiunge l'icona del calendario all'elemento input del calendario
-  var calendarIcon = '<i class="far fa-calendar-alt"></i>';
-  var addCalendarButton = function(input) {
-    var icon = document.createElement('span');
-    icon.classList.add('icon');
-    icon.innerHTML = calendarIcon;
-    input.parentNode.insertBefore(icon, input.nextSibling);
-  };
-
-  // Inizializza il widget del calendario per la selezione delle date
-  if (startDateInput && endDateInput) {
-    if (typeof flatpickr !== 'undefined') {
-      // flatpickr è già stato caricato tramite CDN
-        startDateCalendar = flatpickr(startDateInput, {
-          dateFormat: 'd/m/Y',
-          disableMobile: true,
-          onChange: function(selectedDates) {
-            endDateCalendar.set('minDate', selectedDates[0]);
-          },
-          locale: {
-              "firstDayOfWeek": 1 // start week on Monday
-          }
-        });
-
-        endDateCalendar = flatpickr(endDateInput, {
-          dateFormat: 'd/m/Y',
-          disableMobile: true,
-          onChange: function(selectedDates) {
-            startDateCalendar.set('maxDate', selectedDates[0]);
-          },
-          locale: {
-              "firstDayOfWeek": 1 // start week on Monday
-          }
-        });
-
-      addCalendarButton(startDateInput);
-      addCalendarButton(endDateInput);
-    } else {
-      // flatpickr non è stato caricato tramite CDN
-      console.log('Flatpickr non è stato trovato');
-    }
-  }
-});
-</script>
