@@ -57,8 +57,8 @@ with open('/home/mattchen2/Tutor-Availability/data/aule.json') as f:
 gruppi_aule = {
     "Laboratori U4": ["111", "311", "4A1", "531"],
     "Laboratori U16": ["1631", "1641"],
-    "Laboratori U7": ["711","712","713","714","715","716","717","718","719"],
-    "Laboratori U9": [],
+    "Laboratori U7": ["711","712","713","714","715","716","717","718","719","732"],
+    "Laboratori U9": ["904","905","906","907","908","909","910","911"],
     "Laboratori U14": ["1401", "14A1"]
 }
 

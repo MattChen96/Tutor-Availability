@@ -17,6 +17,8 @@
       padding: 20px;
       cursor: pointer;
       display: inline-block;
+      width: 300px; /* Larghezza desiderata */
+      height: 200px; /* Altezza desiderata */
     }
 
     .dropzone.dragover {
@@ -61,10 +63,10 @@
       </div>
       <br><br>
       <p>Scaricare il file .csv: Nel File Google >> File > Scarica > valori separati da virgola (.csv)</p>
-      <div class="dropzone" onclick="document.getElementById('file_csv').click()">
-        <div class="file-input-label">Trascina qui il file o clicca per selezionare un file</div>
-        <input type="file" id="file_csv" name="file_csv" accept=".csv" style="display: none;">
-      </div>
+        <div class="dropzone" ondragover="handleDragOver(event)" onclick="openFileSelector()">
+            <div class="file-input-label">Trascina qui il file o clicca per selezionare un file</div>
+            <input type="file" id="file_csv" name="file_csv" accept=".csv" style="display: none;">
+        </div>
       <br><br>
       <input type="submit" value="Genera file Excel">
     </form>
@@ -92,97 +94,102 @@
       <p>Github: <a href="https://github.com/MattChen96/Tutor-Availability">Link</a></p>
     </footer>
   </div>
-  
-    <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      var fileInput = document.getElementById('file_csv');
-      var fileInputLabel = document.querySelector('.file-input-label');
-      var isDraggingFile = false;
 
-      fileInputLabel.addEventListener('click', function () {
-        if (!isDraggingFile) {
-          fileInput.click();
-        }
-      });
+  <script>
+  function handleDragOver(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    event.dataTransfer.dropEffect = 'copy';
+  }
 
-      fileInput.addEventListener('change', function () {
-        var fileName = fileInput.value.split('\\').pop();
+  function openFileSelector() {
+    document.getElementById('file_csv').click();
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var fileInput = document.getElementById('file_csv');
+    var fileInputLabel = document.querySelector('.file-input-label');
+    var isDraggingFile = false;
+
+    fileInput.addEventListener('change', function () {
+      var fileName = fileInput.value.split('\\').pop();
+      fileInputLabel.innerText = fileName;
+    });
+
+    var container = document.querySelector('.container');
+
+    container.addEventListener('dragover', function (e) {
+      e.preventDefault();
+      container.classList.add('dragover');
+      isDraggingFile = true;
+    });
+
+    container.addEventListener('dragleave', function (e) {
+      e.preventDefault();
+      container.classList.remove('dragover');
+      isDraggingFile = false;
+    });
+
+    container.addEventListener('drop', function (e) {
+      e.preventDefault();
+      container.classList.remove('dragover');
+      isDraggingFile = false;
+
+      var files = e.dataTransfer.files;
+      if (files.length > 0) {
+        fileInput.files = files;
+        var fileName = files[0].name;
         fileInputLabel.innerText = fileName;
-      });
-
-      var container = document.querySelector('.container');
-
-      container.addEventListener('dragover', function (e) {
-        e.preventDefault();
-        container.classList.add('dragover');
-        isDraggingFile = true;
-      });
-
-      container.addEventListener('dragleave', function (e) {
-        e.preventDefault();
-        container.classList.remove('dragover');
-        isDraggingFile = false;
-      });
-
-      container.addEventListener('drop', function (e) {
-        e.preventDefault();
-        container.classList.remove('dragover');
-        isDraggingFile = false;
-
-        var files = e.dataTransfer.files;
-        if (files.length > 0) {
-          fileInput.files = files;
-          var fileName = files[0].name;
-          fileInputLabel.innerText = fileName;
-        }
-      });
-
-      var startDateInput = document.getElementById('start_date');
-      var endDateInput = document.getElementById('end_date');
-      var startDateCalendar;
-      var endDateCalendar;
-
-      var calendarIcon = '<i class="far fa-calendar-alt"></i>';
-      var addCalendarButton = function (input) {
-        var icon = document.createElement('span');
-        icon.classList.add('icon');
-        icon.innerHTML = calendarIcon;
-        input.parentNode.insertBefore(icon, input.nextSibling);
-      };
-
-      if (startDateInput && endDateInput) {
-        if (typeof flatpickr !== 'undefined') {
-          startDateCalendar = flatpickr(startDateInput, {
-            dateFormat: 'd/m/Y',
-            disableMobile: true,
-            onChange: function (selectedDates) {
-              endDateCalendar.set('minDate', selectedDates[0]);
-            },
-            locale: {
-              "firstDayOfWeek": 1
-            }
-          });
-
-          endDateCalendar = flatpickr(endDateInput, {
-            dateFormat: 'd/m/Y',
-            disableMobile: true,
-            onChange: function (selectedDates) {
-              startDateCalendar.set('maxDate', selectedDates[0]);
-            },
-            locale: {
-              "firstDayOfWeek": 1
-            }
-          });
-
-          addCalendarButton(startDateInput);
-          addCalendarButton(endDateInput);
-        } else {
-          console.log('Flatpickr non è stato trovato');
-        }
       }
     });
+
+    var startDateInput = document.getElementById('start_date');
+    var endDateInput = document.getElementById('end_date');
+    var startDateCalendar;
+    var endDateCalendar;
+
+    var calendarIcon = '<i class="far fa-calendar-alt"></i>';
+    var addCalendarButton = function (input) {
+      var icon = document.createElement('span');
+      icon.classList.add('icon');
+      icon.innerHTML = calendarIcon;
+      input.parentNode.insertBefore(icon, input.nextSibling);
+    };
+
+    if (startDateInput && endDateInput) {
+      if (typeof flatpickr !== 'undefined') {
+        startDateCalendar = flatpickr(startDateInput, {
+          dateFormat: 'd/m/Y',
+          disableMobile: true,
+          onChange: function (selectedDates) {
+            endDateCalendar.set('minDate', selectedDates[0]);
+          },
+          locale: {
+            "firstDayOfWeek": 1
+          }
+        });
+
+        endDateCalendar = flatpickr(endDateInput, {
+          dateFormat: 'd/m/Y',
+          disableMobile: true,
+          onChange: function (selectedDates) {
+            startDateCalendar.set('maxDate', selectedDates[0]);
+          },
+          locale: {
+            "firstDayOfWeek": 1
+          }
+        });
+
+        addCalendarButton(startDateInput);
+        addCalendarButton(endDateInput);
+      } else {
+        console.log('Flatpickr non è stato trovato');
+      }
+    }
+  });
   </script>
-  
+
+
 </body>
 
 </html>
