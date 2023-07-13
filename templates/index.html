@@ -7,28 +7,6 @@
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <meta charset="UTF-8">
   <title>Disponibilità Tutor</title>
-  <style>
-    .container {
-      text-align: center;
-    }
-
-    .dropzone {
-      border: 2px dashed #999;
-      padding: 20px;
-      cursor: pointer;
-      display: inline-block;
-      width: 300px; /* Larghezza desiderata */
-      height: 200px; /* Altezza desiderata */
-    }
-
-    .dropzone.dragover {
-      background-color: #f1f1f1;
-    }
-
-    .file-input-label {
-      font-size: 18px;
-    }
-  </style>
 </head>
 
 <body>
@@ -51,18 +29,18 @@
         {% endfor %}
       </select>
       <br><br>
-      <label for="date_range">Date:</label>
+      <label for="date_range">Date: <b>Da:</b></label>
       <div class="calendar">
         <input type="date" id="start_date" name="start_date" required>
         <span class="icon"></span>
       </div>
-      -
+       <b>A:</b>
       <div class="calendar">
         <input type="date" id="end_date" name="end_date" required>
         <span class="icon"></span>
       </div>
       <br><br>
-      <p>Scaricare il file .csv: Nel File Google >> File > Scarica > valori separati da virgola (.csv)</p>
+      <p>Scaricare il file nel formato <b>.csv</b>: Nel File Google >> File > Scarica > <u>valori separati da virgola (.csv)</u></p>
         <div class="dropzone" ondragover="handleDragOver(event)" onclick="openFileSelector()">
             <div class="file-input-label">Trascina qui il file o clicca per selezionare un file</div>
             <input type="file" id="file_csv" name="file_csv" accept=".csv" style="display: none;">
@@ -77,9 +55,10 @@
         <li>Bloccare le prime colonne del file excel per avere una visione più fluida
           <ul>
             <li>Visualizza > Blocca riquadri > Blocca riquadri</li>
-            <li>-- per bloccare le prime due colonne è necessario selezionare la terza colonna</li>
+            <li><u>(per bloccare le prime due colonne è necessario selezionare <b>(SOLO)</b> la terza colonna)</u></li>
           </ul>
         </li>
+        <br>
         <li>Potrebbe essere necessario sbloccare la visualizzazione protetta:
           <ul>
             <li>Fare clic su File > Opzioni</li>
