@@ -6,15 +6,8 @@
     <title>Elenco aule</title>
   </head>
   <body>
-      <div class="dashboard">
-      <div>
-        <h1></h1>
-      </div>
-      <div>
-        <a href = "/"> <button class="active">Home</button> </a>
-        <a href ="/aule"> <button class="active">Aule</button> </a>
-      </div>
-    </div>
+    {% include 'dashboard.html' %}
+
     <div class="container">
       <h1>Elenco aule</h1>
       <div class="row">
@@ -30,5 +23,7 @@
       {% endfor %}
       </div>
     </div>
+
+    {% include 'footer.html' %}
   </body>
 </html>

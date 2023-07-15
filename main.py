@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, send_file, after_this_request
+from flask import Flask, render_template, request, send_file, after_this_request, send_from_directory
+
 from datetime import datetime , timedelta
 import pandas as pd
 from create_availability import create_availability_excel
@@ -81,6 +82,22 @@ def room():
 
     # passa i gruppi di bottoni alla pagina HTML
     return render_template('aule.html', gruppi_links=gruppi_links)
+
+
+@app.route('/guide-script')
+def script_excel():
+    files = [
+        {'name': 'Controllo Disponibilità e Orari', 'filename': 'controllo_disponibilita_e_orari.pdf', 'description': 'Guida allo script che controlla che gli orari siano congrue alle disponibilità'},
+        {'name': 'Script Verifica Sovrapposizioni', 'filename': 'script_verifica_sovrapposizioni.pdf', 'description': 'Guida allo script che controlla che non ci siano sovrapposizioni dello stesso tutor'},
+        {'name': 'Script Visualizza Disponibilità', 'filename': 'script_disponibilità.pdf .pdf', 'description': 'Guida allo script che permette di visualizzare le disponibilità verticalmente'}
+    ]
+    return render_template('guide-script.html', files=files)
+
+@app.route('/download/<filename>')
+def download(filename):
+    directory = '/home/mattchen2/Tutor-Availability/data/guide_script/'  # Sostituisci con il percorso reale della cartella dei file PDF
+    return send_from_directory(directory, filename)
+
 
 if __name__ == '__main__':
     app.run()

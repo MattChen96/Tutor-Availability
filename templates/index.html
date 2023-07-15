@@ -10,46 +10,40 @@
 </head>
 
 <body>
-  <div class="dashboard">
-    <div>
-      <h1></h1>
-    </div>
-    <div>
-      <a href="/"> <button class="active">Home</button> </a>
-      <a href="/aule"> <button class="active">Aule</button> </a>
-    </div>
-  </div>
-  <div class="container">
-    <h1>Disponibilità Tutor</h1>
-    <form method="POST" enctype="multipart/form-data">
-      <label for="valore">Gruppo:</label>
-      <select id="valore" name="valore">
-        {% for v in lista_valori %}
-        <option value="{{ v }}">{{ v }}</option>
-        {% endfor %}
-      </select>
-      <br><br>
-      <label for="date_range">Date: <b>Da:</b></label>
-      <div class="calendar">
-        <input type="date" id="start_date" name="start_date" required>
-        <span class="icon"></span>
-      </div>
-       <b>A:</b>
-      <div class="calendar">
-        <input type="date" id="end_date" name="end_date" required>
-        <span class="icon"></span>
-      </div>
-      <br><br>
-      <p>Scaricare il file nel formato <b>.csv</b>: Nel File Google >> File > Scarica > <u>valori separati da virgola (.csv)</u></p>
-        <div class="dropzone" ondragover="handleDragOver(event)" onclick="openFileSelector()">
-            <div class="file-input-label">Trascina qui il file o clicca per selezionare un file</div>
-            <input type="file" id="file_csv" name="file_csv" accept=".csv" style="display: none;">
-        </div>
-      <br><br>
-      <input type="submit" value="Genera file Excel">
-    </form>
-    <br><br><br>
-    <div>
+
+    {% include 'dashboard.html' %}
+
+    <div class="container">
+        <h1>Disponibilità Tutor</h1>
+        <form method="POST" enctype="multipart/form-data">
+            <label for="valore">Gruppo:</label>
+            <select id="valore" name="valore">
+                {% for v in lista_valori %}
+                <option value="{{ v }}">{{ v }}</option>
+                {% endfor %}
+            </select>
+            <br><br>
+            <label for="date_range">Date: <b>Da:</b></label>
+            <div class="calendar">
+                <input type="date" id="start_date" name="start_date" required>
+                <span class="icon"></span>
+              </div>
+               <b>A:</b>
+              <div class="calendar">
+                <input type="date" id="end_date" name="end_date" required>
+                <span class="icon"></span>
+              </div>
+              <br><br>
+              <p>Scaricare il file nel formato <b>.csv</b>: Nel File Google >> File > Scarica > <u>valori separati da virgola (.csv)</u></p>
+                <div class="dropzone" ondragover="handleDragOver(event)" onclick="openFileSelector()">
+                    <div class="file-input-label">Trascina qui il file o clicca per selezionare un file</div>
+                    <input type="file" id="file_csv" name="file_csv" accept=".csv" style="display: none;">
+                </div>
+              <br><br>
+              <input type="submit" value="Genera file Excel">
+            </form>
+            <br><br><br>
+            <div>
       <p>Consigli:</p>
       <ul>
         <li>Bloccare le prime colonne del file excel per avere una visione più fluida
@@ -69,9 +63,8 @@
     </div>
 
     <!-- Footer -->
-    <footer style="position: fixed; bottom: 0; left: 0; right: 0; background-color: #ccc;">
-      <p>Github: <a href="https://github.com/MattChen96/Tutor-Availability">Link</a></p>
-    </footer>
+    {% include 'footer.html' %}
+
   </div>
 
   <script>
@@ -167,7 +160,6 @@
     }
   });
   </script>
-
 
 </body>
 

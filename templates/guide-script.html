@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>File PDF da scaricare</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+
+    {% include 'dashboard.html' %}
+
+    <h1>File PDF disponibili</h1>
+    <ul>
+    {% for file in files %}
+      <li><a href="{{ url_for('download', filename=file.filename) }}" target="_blank"><i class="fas fa-file-pdf"></i> {{ file.name }}</a> - {{ file.description }} </li>
+    {% endfor %}
+    </ul>
+
+</body>
+</html>
+
