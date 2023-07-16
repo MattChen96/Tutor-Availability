@@ -1,66 +1,91 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>Web App per Verifica Duplicati</title>
-  <script>
-    function handleDragOver(event) {
-      event.preventDefault();
-      event.stopPropagation();
-      event.dataTransfer.dropEffect = 'copy';
-    }
-
-    function openFileSelector() {
-      document.getElementById('file_xlsx').click();
-    }
-
-    function handleFileUpload() {
-      var fileInput = document.getElementById('file_xlsx');
-      var file = fileInput.files[0];
-      var formData = new FormData();
-      formData.append('file_xlsx', file);
-
-      var labGroupInput = document.getElementById('lab_group');
-      var labGroup = labGroupInput.value;
-      formData.append('lab_group', labGroup);
-
-      fetch('/upload', {
-        method: 'POST',
-        body: formData
-      })
-        .then(function (response) {
-          // Controlla se la risposta è un file
-          if (response.headers.get('content-type') === 'text/plain') {
-            // Esegue il download del file di report
-            response.blob().then(function (blob) {
-              var url = URL.createObjectURL(blob);
-              var a = document.createElement('a');
-              a.href = url;
-              a.download = 'report.txt';
-              document.body.appendChild(a);
-              a.click();
-              a.remove();
-            });
-          }
-        })
-        .catch(function (error) {
-          console.error('Errore durante il caricamento del file:', error);
-        });
-    }
-  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <link rel="stylesheet" href="static/style.css">
+  <meta charset="UTF-8">
+  <title>Disponibilità Tutor</title>
 </head>
+
 <body>
-  <div class="container">
-    <div class="dropzone" ondragover="handleDragOver(event)" onclick="openFileSelector()">
-      <div class="file-input-label">Trascina qui il file o clicca per selezionare un file</div>
-      <input type="file" id="file_xlsx" name="file_xlsx" accept=".xlsx" style="display: none;">
+
+    {% include 'dashboard.html' %}
+
+    <div class="container">
+        <h1>Disponibilità Tutor</h1>
+        <form method="POST" enctype="multipart/form-data" action="/controlla-sovrapposizioni">
+            <label for="gruppo">Gruppo:</label>
+            <select id="gruppo" name="gruppo">
+                {% for lab_group in lab_groups %}
+                <option value="{{ lab_group }}">{{ lab_group }}</option>
+                {% endfor %}
+            </select>
+            <br><br>
+            <div>
+              <label for="file_xlsx">File Excel:</label>
+              <input type="file" id="file_xlsx" name="file_xlsx" accept=".xlsx">
+            </div>
+            <br><br>
+            <input type="submit" value="Genera file di report">
+        </form>
     </div>
-    <label for="lab_group">Gruppo di laboratori:</label>
-    <select id="lab_group" name="lab_group">
-      {% for group in lab_groups %}
-      <option value="{{ group }}">{{ group }}</option>
-      {% endfor %}
-    </select>
-    <button onclick="handleFileUpload()">Avvia procedura e scarica report</button>
+
+    <!-- Footer -->
+    {% include 'footer.html' %}
+
   </div>
+
+  <script>
+  function handleDragOver(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    event.dataTransfer.dropEffect = 'copy';
+  }
+
+  function openFileSelector() {
+    document.getElementById('file_xlsx').click();
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var fileInput = document.getElementById('file_xlsx');
+    var fileInputLabel = document.querySelector('.file-input-label');
+    var isDraggingFile = false;
+
+    fileInput.addEventListener('change', function () {
+      var fileName = fileInput.value.split('\\').pop();
+      fileInputLabel.innerText = fileName;
+    });
+
+    var container = document.querySelector('.container');
+
+    container.addEventListener('dragover', function (e) {
+      e.preventDefault();
+      container.classList.add('dragover');
+      isDraggingFile = true;
+    });
+
+    container.addEventListener('dragleave', function (e) {
+      e.preventDefault();
+      container.classList.remove('dragover');
+      isDraggingFile = false;
+    });
+
+    container.addEventListener('drop', function (e) {
+      e.preventDefault();
+      container.classList.remove('dragover');
+      isDraggingFile = false;
+
+      var files = e.dataTransfer.files;
+      if (files.length > 0) {
+        fileInput.files = files;
+        var fileName = files[0].name;
+        fileInputLabel.innerText = fileName;
+      }
+    });
+  });
+  </script>
+
 </body>
+
 </html>

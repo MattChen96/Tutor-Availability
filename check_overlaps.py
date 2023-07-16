@@ -1,29 +1,21 @@
+import openpyxl
+import json
+
+with open('./data/caselle_excel_laboratori.json') as f:
+    caselle = json.load(f)
+
 def check_overlaps(file_path, lab_group):
+    import openpyxl
+
     # Aprire il file di lavoro
     workbook = openpyxl.load_workbook(file_path)
 
     ws = workbook.worksheets[0]
 
-    # Definire gli array di laboratori e giorni della settimana
-    laboratori = [
-        ["LAB711", 7, 26],
-        ["LAB712", 35, 54],
-        ["LAB713", 63, 82],
-        ["LAB714", 91, 110],
-        ["LAB715", 119, 138],
-        ["LAB716", 147, 166],
-        ["LAB717", 175, 194],
-        ["LAB718", 203, 222],
-        ["LAB719", 231, 250],
-        ["LAB732", 286, 306],
-        ["LAB1401", 315, 334],
-        ["LAB14A1", 342, 362]
-    ]
-
     giorni_settimana = ["Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì"]
 
     # Array contenente le righe di inizio dei vari laboratori
-    arr_lab = [7, 35, 63, 91, 119, 147, 175, 203, 231, 286, 315, 342]
+    arr_lab = list(caselle[lab_group].values())
 
     report = ""  # Stringa di report
 
@@ -39,21 +31,23 @@ def check_overlaps(file_path, lab_group):
                     ):
                         lab1 = ""
                         lab2 = ""
-                        for m in range(len(laboratori)):
-                            if laboratori[m][1] <= i <= laboratori[m][2]:
-                                lab1 = laboratori[m][0]
+                        for lab, start_row in caselle[lab_group].items():
+                            if start_row <= i <= start_row + 19:
+                                lab1 = lab
                             if (
                                 arr_lab[k] + (i - arr_lab[j])
-                                >= laboratori[m][1]
+                                >= start_row
                                 and arr_lab[k] + (i - arr_lab[j])
-                                <= laboratori[m][2]
+                                <= start_row + 19
                             ):
-                                lab2 = laboratori[m][0]
+                                lab2 = lab
 
                         report += f"Errore: Cognome '{ws.cell(row=i, column=l).value}' duplicato rilevato nelle righe {i} e {arr_lab[k] + (i - arr_lab[j])}, giorno: {giorni_settimana[l - 4]}, Laboratorio: {lab1} e {lab2}.\n"
 
     if not report:
         report = "Nessun cognome duplicato rilevato."
+
+    print(report)
 
     # Salva il report in un file di testo
     report_file = "report.txt"
@@ -61,5 +55,4 @@ def check_overlaps(file_path, lab_group):
         f.write(report)
     return report_file
 
-if __name__ == '__main__':
-    app.run()
+

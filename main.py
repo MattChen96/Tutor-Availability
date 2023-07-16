@@ -52,7 +52,7 @@ def delete_file(response):
     return response
 
 
-with open('/home/mattchen2/Tutor-Availability/data/aule.json') as f:
+with open('./data/aule.json') as f:
     aule = json.load(f)
 
 # definisci i gruppi di aule in base al nome
@@ -102,22 +102,24 @@ def download(filename):
 
 @app.route('/controlla-sovrapposizioni', methods=['GET', 'POST'])
 def controlla_sovrapposizioni():
-    lista_gruppi = ["Gruppo 1", "Gruppo 2", "Gruppo 3"]  # Esempio di lista di gruppi
+    lista_gruppi = ["U7", "U9", "U4", "U16"]  # Esempio di lista di gruppi
 
     if request.method == 'POST':
         # Leggere i dati inseriti dall'utente
-        gruppo = request.form.get('valore')
+        gruppo = request.form.get('gruppo')
         file = request.files['file_xlsx']
         file.save('uploaded_file.xlsx')
+
+        print(gruppo)
 
         # Controllo delle sovrapposizioni e generazione del report
         report_file = check_overlaps(file, gruppo)
 
         # Invia il report come file di testo al client
-        return send_file(report_file, as_attachment=True, attachment_filename=f"report_{gruppo}.txt", mimetype='text/plain')
+        return send_file(report_file, as_attachment=True, download_name=f"report_{gruppo}.txt", mimetype='text/plain')
 
-    return render_template('controlla-sovrapposizioni.html', lista_gruppi=lista_gruppi)
+    return render_template('controlla-sovrapposizioni.html', lab_groups=lista_gruppi)
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
