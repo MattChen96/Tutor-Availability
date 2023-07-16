@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Web App per Verifica Duplicati</title>
+  <script>
+    function handleDragOver(event) {
+      event.preventDefault();
+      event.stopPropagation();
+      event.dataTransfer.dropEffect = 'copy';
+    }
+
+    function openFileSelector() {
+      document.getElementById('file_xlsx').click();
+    }
+
+    function handleFileUpload() {
+      var fileInput = document.getElementById('file_xlsx');
+      var file = fileInput.files[0];
+      var formData = new FormData();
+      formData.append('file_xlsx', file);
+
+      var labGroupInput = document.getElementById('lab_group');
+      var labGroup = labGroupInput.value;
+      formData.append('lab_group', labGroup);
+
+      fetch('/upload', {
+        method: 'POST',
+        body: formData
+      })
+        .then(function (response) {
+          // Controlla se la risposta è un file
+          if (response.headers.get('content-type') === 'text/plain') {
+            // Esegue il download del file di report
+            response.blob().then(function (blob) {
+              var url = URL.createObjectURL(blob);
+              var a = document.createElement('a');
+              a.href = url;
+              a.download = 'report.txt';
+              document.body.appendChild(a);
+              a.click();
+              a.remove();
+            });
+          }
+        })
+        .catch(function (error) {
+          console.error('Errore durante il caricamento del file:', error);
+        });
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <div class="dropzone" ondragover="handleDragOver(event)" onclick="openFileSelector()">
+      <div class="file-input-label">Trascina qui il file o clicca per selezionare un file</div>
+      <input type="file" id="file_xlsx" name="file_xlsx" accept=".xlsx" style="display: none;">
+    </div>
+    <label for="lab_group">Gruppo di laboratori:</label>
+    <select id="lab_group" name="lab_group">
+      {% for group in lab_groups %}
+      <option value="{{ group }}">{{ group }}</option>
+      {% endfor %}
+    </select>
+    <button onclick="handleFileUpload()">Avvia procedura e scarica report</button>
+  </div>
+</body>
+</html>

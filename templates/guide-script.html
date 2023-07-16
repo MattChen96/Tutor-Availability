@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>File PDF da scaricare</title>
+  <title>Guide Script Excel</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link rel="stylesheet" href="static/style.css">
 </head>
@@ -9,12 +9,22 @@
 
     {% include 'dashboard.html' %}
 
-    <h1>File PDF disponibili</h1>
+    <h1>Guide Script Excel</h1>
+
+    <div class="author-section">
+        <p>Raccolta delle guide e degli script creati personalmente da Angelo a supporto dei Capi Tutor LIB.</p>
+    </div>
+
+    <h2>Guide pdf disponibili:</h2>
     <ul>
     {% for file in files %}
       <li><a href="{{ url_for('download', filename=file.filename) }}" target="_blank"><i class="fas fa-file-pdf"></i> {{ file.name }}</a> - {{ file.description }} </li>
     {% endfor %}
     </ul>
+
+    <p><b>Guide e Script realizzati da Angelo</b></p>
+
+    {% include 'footer.html' %}
 
 </body>
 </html>

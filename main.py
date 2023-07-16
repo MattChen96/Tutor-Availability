@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, send_file, after_this_request
 from datetime import datetime , timedelta
 import pandas as pd
 from create_availability import create_availability_excel
+from check_overlaps import check_overlaps
 import os
 import json
 
@@ -35,7 +36,7 @@ def home():
             output = create_availability_excel(df, data, gruppo)
 
 
-        return send_file(output, as_attachment=True, download_name= f"disponibilità_{gruppo}.xlsx" ,mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' )
+        return send_file(output, as_attachment=True, download_name= f"disponibilità_{gruppo}.xlsx" ,mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
 
 
     return render_template('index.html', lista_valori=lista_valori )
@@ -97,6 +98,25 @@ def script_excel():
 def download(filename):
     directory = '/home/mattchen2/Tutor-Availability/data/guide_script/'  # Sostituisci con il percorso reale della cartella dei file PDF
     return send_from_directory(directory, filename)
+
+
+@app.route('/controlla-sovrapposizioni', methods=['GET', 'POST'])
+def controlla_sovrapposizioni():
+    lista_gruppi = ["Gruppo 1", "Gruppo 2", "Gruppo 3"]  # Esempio di lista di gruppi
+
+    if request.method == 'POST':
+        # Leggere i dati inseriti dall'utente
+        gruppo = request.form.get('valore')
+        file = request.files['file_xlsx']
+        file.save('uploaded_file.xlsx')
+
+        # Controllo delle sovrapposizioni e generazione del report
+        report_file = check_overlaps(file, gruppo)
+
+        # Invia il report come file di testo al client
+        return send_file(report_file, as_attachment=True, attachment_filename=f"report_{gruppo}.txt", mimetype='text/plain')
+
+    return render_template('controlla-sovrapposizioni.html', lista_gruppi=lista_gruppi)
 
 
 if __name__ == '__main__':

@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="static/style.css">
     <title>Elenco aule</title>
-  </head>
-  <body>
+</head>
+<body>
+
     {% include 'dashboard.html' %}
 
     <div class="container">
       <h1>Elenco aule</h1>
+      <p>Link al calendario delle attività della settimana prossima dei singoli LAB:</p>
       <div class="row">
       {% for gruppo, links in gruppi_links %}
         <div class="col-md">
@@ -25,5 +27,5 @@
     </div>
 
     {% include 'footer.html' %}
-  </body>
+</body>
 </html>
