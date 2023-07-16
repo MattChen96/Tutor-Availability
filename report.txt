@@ -1,0 +1,4 @@
+Errore: Cognome 'BONGIOVANNI' duplicato rilevato nelle righe 23 e 51, giorno: Venerdì, Laboratorio: LAB711 e LAB712.
+Errore: Cognome 'BONGIOVANNI' duplicato rilevato nelle righe 24 e 52, giorno: Venerdì, Laboratorio: LAB711 e LAB712.
+Errore: Cognome 'BONGIOVANNI' duplicato rilevato nelle righe 25 e 53, giorno: Venerdì, Laboratorio: LAB711 e LAB712.
+Errore: Cognome 'BONGIOVANNI' duplicato rilevato nelle righe 26 e 54, giorno: Venerdì, Laboratorio: LAB711 e LAB712.

@@ -9,6 +9,8 @@ import json
 
 app = Flask(__name__)
 
+root_folder = "/home/mattchen2/Tutor-Availability"
+
 # Lista predefinita di valori per il primo input
 lista_valori = ['U7 - U14', 'U9', 'U4', 'U16']
 
@@ -52,7 +54,7 @@ def delete_file(response):
     return response
 
 
-with open('./data/aule.json') as f:
+with open('/home/mattchen2/Tutor-Availability/data/aule.json') as f:
     aule = json.load(f)
 
 # definisci i gruppi di aule in base al nome
@@ -90,7 +92,7 @@ def script_excel():
     files = [
         {'name': 'Controllo Disponibilità e Orari', 'filename': 'controllo_disponibilita_e_orari.pdf', 'description': 'Guida allo script che controlla che gli orari siano congrue alle disponibilità'},
         {'name': 'Script Verifica Sovrapposizioni', 'filename': 'script_verifica_sovrapposizioni.pdf', 'description': 'Guida allo script che controlla che non ci siano sovrapposizioni dello stesso tutor'},
-        {'name': 'Script Visualizza Disponibilità', 'filename': 'script_disponibilità.pdf .pdf', 'description': 'Guida allo script che permette di visualizzare le disponibilità verticalmente'}
+        {'name': 'Script Visualizza Disponibilità', 'filename': 'script_disponibilità.pdf', 'description': 'Guida allo script che permette di visualizzare le disponibilità verticalmente'}
     ]
     return render_template('guide-script.html', files=files)
 
@@ -108,7 +110,7 @@ def controlla_sovrapposizioni():
         # Leggere i dati inseriti dall'utente
         gruppo = request.form.get('gruppo')
         file = request.files['file_xlsx']
-        file.save('uploaded_file.xlsx')
+        file.save(root_folder + 'uploaded_file.xlsx')
 
         print(gruppo)
 
