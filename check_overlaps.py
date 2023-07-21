@@ -41,7 +41,7 @@ def check_overlaps(file_path, lab_group):
                             ):
                                 lab2 = lab
 
-                        report += f"Errore: Cognome '{ws.cell(row=i, column=l).value}' duplicato rilevato nelle righe {i} e {arr_lab[k] + (i - arr_lab[j])}, giorno: {giorni_settimana[l - 4]}, Laboratorio: {lab1} e {lab2}.\n"
+                        report += f"Errore: Cognome '{ws.cell(row=i, column=l).value}' duplicato rilevato nelle righe {i} e {arr_lab[k] + (i - arr_lab[j])}, giorno: {giorni_settimana[l - 4]}, Laboratorio: {lab1} e {lab2}.\r\n"
 
     if not report:
         report = "Nessun cognome duplicato rilevato."

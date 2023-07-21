@@ -110,7 +110,7 @@ def controlla_sovrapposizioni():
         # Leggere i dati inseriti dall'utente
         gruppo = request.form.get('gruppo')
         file = request.files['file_xlsx']
-        file.save(root_folder + 'uploaded_file.xlsx')
+        file.save(root_folder + '/uploaded_file.xlsx')
 
         print(gruppo)
 

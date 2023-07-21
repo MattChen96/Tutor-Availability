@@ -1,4 +1,3 @@
-Errore: Cognome 'BONGIOVANNI' duplicato rilevato nelle righe 23 e 51, giorno: Venerdì, Laboratorio: LAB711 e LAB712.
-Errore: Cognome 'BONGIOVANNI' duplicato rilevato nelle righe 24 e 52, giorno: Venerdì, Laboratorio: LAB711 e LAB712.
-Errore: Cognome 'BONGIOVANNI' duplicato rilevato nelle righe 25 e 53, giorno: Venerdì, Laboratorio: LAB711 e LAB712.
-Errore: Cognome 'BONGIOVANNI' duplicato rilevato nelle righe 26 e 54, giorno: Venerdì, Laboratorio: LAB711 e LAB712.
+Errore: Cognome 'CATTANEO' duplicato rilevato nelle righe 7 e 35, giorno: Lunedì, Laboratorio: LAB1631 e LAB1641.
+Errore: Cognome 'ZANETTI' duplicato rilevato nelle righe 8 e 36, giorno: Venerdì, Laboratorio: LAB1631 e LAB1641.
+Errore: Cognome 'CATTANEO' duplicato rilevato nelle righe 10 e 38, giorno: Mercoledì, Laboratorio: LAB1631 e LAB1641.
