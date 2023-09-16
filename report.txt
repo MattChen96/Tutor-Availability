@@ -1,3 +1,1 @@
-Errore: Cognome 'CATTANEO' duplicato rilevato nelle righe 7 e 35, giorno: Lunedì, Laboratorio: LAB1631 e LAB1641.
-Errore: Cognome 'ZANETTI' duplicato rilevato nelle righe 8 e 36, giorno: Venerdì, Laboratorio: LAB1631 e LAB1641.
-Errore: Cognome 'CATTANEO' duplicato rilevato nelle righe 10 e 38, giorno: Mercoledì, Laboratorio: LAB1631 e LAB1641.
+Errore: Cognome 'MOHAMED' duplicato rilevato nelle righe 9 e 37, giorno: Lunedì, Laboratorio: LAB111 e LAB311.

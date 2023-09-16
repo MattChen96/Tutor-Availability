@@ -78,3 +78,28 @@
 .file-input-label {
   font-size: 18px;
 }
+
+
+.guida-csv {
+  position: relative;
+  display: inline-block;
+}
+
+.guida-csv::before {
+  content: ""; /* Contenuto vuoto necessario per aggiungere l'immagine */
+  background-image: url('images/come_scaricare_in_csv.png'); /* Percorso dell'immagine (assicurati che sia un'immagine di dimensioni più grandi) */
+  background-size: cover;
+  position: absolute;
+  top: -40px; /* Regola la posizione verticale dell'immagine */
+  left: -20px; /* Regola la posizione orizzontale dell'immagine */
+  right: -65px;
+  bottom: -70px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out; /* Aggiungi la transizione per la dimensione */
+  transform: scale(1);
+}
+
+.guida-csv:hover::before {
+  opacity: 1; /* Mostra l'immagine solo quando l'elemento con classe "guida-csv" è in hover */
+  transform: scale(2); /* Regola la scala per ingrandire l'immagine */
+}
