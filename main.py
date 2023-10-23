@@ -6,6 +6,7 @@ from create_availability import create_availability_excel
 from check_overlaps import check_overlaps
 import os
 import json
+import logging
 
 app = Flask(__name__)
 
@@ -13,6 +14,9 @@ root_folder = "/home/mattchen2/Tutor-Availability"
 
 # Lista predefinita di valori per il primo input
 lista_valori = ['U7 - U14', 'U9', 'U4', 'U16']
+
+log_file = "/home/mattchen2/Tutor-Availability/app.log"
+logging.basicConfig(filename=log_file, level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
 # Route per la pagina con il form
 @app.route('/', methods=['GET', 'POST'])
@@ -36,6 +40,10 @@ def home():
         # Elaborare il file Excel caricato dall'utente
         for data in date_list:
             output = create_availability_excel(df, data, gruppo)
+
+
+        # Registra il download del file delle disponibilità
+        app.logger.info(f"Scaricato file di disponibilità: disponibilità_{gruppo}.xlsx")
 
 
         return send_file(output, as_attachment=True, download_name= f"disponibilità_{gruppo}.xlsx" ,mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
