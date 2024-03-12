@@ -1,0 +1,6 @@
+# Ignora i file di log
+*.log
+
+report.txt
+
+uploaded_file.xlsx
