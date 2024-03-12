@@ -140,7 +140,7 @@ def crea_excel_aperture():
 
         return send_file(file_aperture, as_attachment=True, download_name=f"aperture_{gruppo}.xlsx", mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
 
-    return render_template('crea-excel_aperture.html', lab_groups=lista_gruppi)
+    return render_template('crea-excel-aperture.html', lab_groups=lista_gruppi)
 
 
 if __name__ == '__main__':

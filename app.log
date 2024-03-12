@@ -1,0 +1,79 @@
+2023-10-23 11:35:38,983 - INFO - Scaricato file di disponibilità: /home/mattchen2/Tutor-Availability/output.xlsx
+2023-10-27 08:34:10,111 - ERROR - OSError: write error
+2023-10-27 08:37:39,217 - INFO - Scaricato file di disponibilità: disponibilità_U7 - U14.xlsx
+2023-11-10 19:29:02,950 - INFO - Scaricato file di disponibilità: disponibilità_U7 - U14.xlsx
+2023-11-24 11:46:29,764 - ERROR - OSError: write error
+2023-11-24 11:46:29,766 - ERROR - OSError: write error
+2023-11-24 11:47:01,475 - INFO - Scaricato file di disponibilità: disponibilità_U7 - U14.xlsx
+2023-11-24 13:45:54,347 - ERROR - OSError: write error
+2023-11-24 13:46:29,957 - ERROR - Exception on / [POST]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.7/site-packages/pandas/core/indexes/base.py", line 3361, in get_loc
+    return self._engine.get_loc(casted_key)
+  File "pandas/_libs/index.pyx", line 76, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 108, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 5198, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 5206, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'Data'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.7/site-packages/flask/app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.7/site-packages/flask/app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.7/site-packages/flask/app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.7/site-packages/flask/app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "/home/mattchen2/Tutor-Availability/main.py", line 42, in home
+    output = create_availability_excel(df, data, gruppo)
+  File "/home/mattchen2/Tutor-Availability/create_availability.py", line 29, in create_availability_excel
+    df = df[(df['Data'] == data_da_filtrare) & (df['Gruppo Tutor'] == gruppo_tutor_da_filtrare)]
+  File "/usr/local/lib/python3.7/site-packages/pandas/core/frame.py", line 3458, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "/usr/local/lib/python3.7/site-packages/pandas/core/indexes/base.py", line 3363, in get_loc
+    raise KeyError(key) from err
+KeyError: 'Data'
+2023-11-24 13:46:58,667 - ERROR - Exception on / [POST]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.7/site-packages/pandas/core/indexes/base.py", line 3361, in get_loc
+    return self._engine.get_loc(casted_key)
+  File "pandas/_libs/index.pyx", line 76, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 108, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 5198, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 5206, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'Data'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.7/site-packages/flask/app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.7/site-packages/flask/app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.7/site-packages/flask/app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.7/site-packages/flask/app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "/home/mattchen2/Tutor-Availability/main.py", line 42, in home
+    output = create_availability_excel(df, data, gruppo)
+  File "/home/mattchen2/Tutor-Availability/create_availability.py", line 29, in create_availability_excel
+    df = df[(df['Data'] == data_da_filtrare) & (df['Gruppo Tutor'] == gruppo_tutor_da_filtrare)]
+  File "/usr/local/lib/python3.7/site-packages/pandas/core/frame.py", line 3458, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "/usr/local/lib/python3.7/site-packages/pandas/core/indexes/base.py", line 3363, in get_loc
+    raise KeyError(key) from err
+KeyError: 'Data'
+2023-11-24 13:47:35,999 - INFO - Scaricato file di disponibilità: disponibilità_U7 - U14.xlsx
+2023-12-06 10:37:05,823 - ERROR - OSError: write error
+2023-12-06 10:37:37,372 - INFO - Scaricato file di disponibilità: disponibilità_U7 - U14.xlsx
+2023-12-06 12:34:46,155 - INFO - Scaricato file di disponibilità: disponibilità_U7 - U14.xlsx
+2024-01-12 09:03:25,836 - ERROR - OSError: write error
+2024-01-12 09:04:06,500 - INFO - Scaricato file di disponibilità: disponibilità_U7 - U14.xlsx
+2024-01-25 08:47:45,669 - INFO - Scaricato file di disponibilità: disponibilità_U7 - U14.xlsx
+2024-02-09 12:44:20,755 - INFO - Scaricato file di disponibilità: disponibilità_U7 - U14.xlsx
+2024-02-23 12:43:28,320 - INFO - Scaricato file di disponibilità: disponibilità_U7 - U14.xlsx
+2024-03-08 14:00:41,541 - ERROR - OSError: write error
+2024-03-08 14:01:09,612 - INFO - Scaricato file di disponibilità: disponibilità_U7 - U14.xlsx
