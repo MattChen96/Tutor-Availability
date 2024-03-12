@@ -4,3 +4,6 @@
 report.txt
 
 uploaded_file.xlsx
+
+__pycache__/
+.idea/
