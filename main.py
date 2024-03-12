@@ -4,6 +4,7 @@ from datetime import datetime , timedelta
 import pandas as pd
 from create_availability import create_availability_excel
 from check_overlaps import check_overlaps
+from create_aperture_excel import create_aperture_excel
 import os
 import json
 
@@ -121,6 +122,25 @@ def controlla_sovrapposizioni():
         return send_file(report_file, as_attachment=True, download_name=f"report_{gruppo}.txt", mimetype='text/plain')
 
     return render_template('controlla-sovrapposizioni.html', lab_groups=lista_gruppi)
+
+@app.route('/crea-excel-aperture', methods=['GET', 'POST'])
+def crea_excel_aperture():
+    lista_gruppi = ["U7", "U9", "U4", "U16"]  # Esempio di lista di gruppi
+
+    if request.method == 'POST':
+        # Leggere i dati inseriti dall'utente
+        gruppo = request.form.get('gruppo')
+        file = request.files['file_xlsx']
+        file.save(root_folder + 'uploaded_file.xlsx')
+
+        print(gruppo)
+
+        # Controllo delle sovrapposizioni e generazione del report
+        file_aperture = create_aperture_excel(file, gruppo)
+
+        return send_file(file_aperture, as_attachment=True, download_name=f"aperture_{gruppo}.xlsx", mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+
+    return render_template('crea-excel_aperture.html', lab_groups=lista_gruppi)
 
 
 if __name__ == '__main__':
