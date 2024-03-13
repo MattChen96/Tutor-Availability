@@ -22,6 +22,10 @@ def create_aperture_excel(file_path, lab_group):
     # Array contenente le righe di inizio dei vari laboratori
     tuple_lab = list(caselle[lab_group].items())
 
+    for i in [2,3]:  #cicli per scrivere le fasce orarie -> copio dal excel originale
+        for j in range(tuple_lab[0][1], tuple_lab[0][1] + 20):
+            ws_aperture.cell(row=j, column=i, value=ws.cell(row=j, column=i).value)
+
     for lab_name, lab_index in tuple_lab:
         for l in range(4, 9):  # Colonne D a H
             indice = tuple_lab[0][1]
