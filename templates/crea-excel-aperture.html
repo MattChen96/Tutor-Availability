@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <link rel="stylesheet" href="static/style.css">
+  <meta charset="UTF-8">
+  <title>Disponibilità Tutor</title>
+</head>
+
+<body>
+
+    {% include 'dashboard.html' %}
+
+    <div class="container">
+        <h1>Disponibilità Tutor</h1>
+        <form method="POST" enctype="multipart/form-data" action="/crea-excel-aperture">
+            <label for="gruppo">Gruppo:</label>
+            <select id="gruppo" name="gruppo">
+                {% for lab_group in lab_groups %}
+                <option value="{{ lab_group }}">{{ lab_group }}</option>
+                {% endfor %}
+            </select>
+            <br><br>
+            <div>
+              <label for="file_xlsx">File Excel:</label>
+              <input type="file" id="file_xlsx" name="file_xlsx" accept=".xlsx">
+            </div>
+            <br><br>
+            <input type="submit" value="Genera file delle aperture">
+        </form>
+    </div>
+
+    <!-- Footer -->
+    {% include 'footer.html' %}
+
+  </div>
+
+  <script>
+  function handleDragOver(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    event.dataTransfer.dropEffect = 'copy';
+  }
+
+  function openFileSelector() {
+    document.getElementById('file_xlsx').click();
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var fileInput = document.getElementById('file_xlsx');
+    var fileInputLabel = document.querySelector('.file-input-label');
+    var isDraggingFile = false;
+
+    fileInput.addEventListener('change', function () {
+      var fileName = fileInput.value.split('\\').pop();
+      fileInputLabel.innerText = fileName;
+    });
+
+    var container = document.querySelector('.container');
+
+    container.addEventListener('dragover', function (e) {
+      e.preventDefault();
+      container.classList.add('dragover');
+      isDraggingFile = true;
+    });
+
+    container.addEventListener('dragleave', function (e) {
+      e.preventDefault();
+      container.classList.remove('dragover');
+      isDraggingFile = false;
+    });
+
+    container.addEventListener('drop', function (e) {
+      e.preventDefault();
+      container.classList.remove('dragover');
+      isDraggingFile = false;
+
+      var files = e.dataTransfer.files;
+      if (files.length > 0) {
+        fileInput.files = files;
+        var fileName = files[0].name;
+        fileInputLabel.innerText = fileName;
+      }
+    });
+  });
+  </script>
+
+</body>
+
+</html>

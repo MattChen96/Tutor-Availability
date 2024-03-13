@@ -1,0 +1,10 @@
+# Ignora i file di log
+*.log
+
+report.txt
+
+*.xlsx
+
+__pycache__/
+.idea/
+
