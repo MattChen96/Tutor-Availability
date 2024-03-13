@@ -3,7 +3,8 @@
 
 report.txt
 
-uploaded_file.xlsx
+*.xlsx
 
 __pycache__/
 .idea/
+
