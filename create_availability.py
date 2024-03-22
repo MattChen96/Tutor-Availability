@@ -2,7 +2,11 @@ import pandas as pd
 from datetime import datetime, timedelta
 import os.path
 from openpyxl import Workbook
+import paths
 
+root_path = paths.ROOT_DIR
+tmp_path = paths.TMP_DIR
+data_path = paths.DATA_DIR
 
 
 def clear(df):
@@ -16,7 +20,7 @@ def clear(df):
 def create_availability_excel(df, data_da_filtrare, gruppo):
 
     #file_path_output = os.path.join(os.getcwd(), "output.xlsx")
-    file_path_output = "/home/mattchen2/Tutor-Availability/output.xlsx"
+    file_path_output = os.path.join(root_path, tmp_path, "output.xlsx")
 
     if not os.path.isfile(file_path_output):
         # se il file non esiste, crea un nuovo file Excel e aggiungi il primo foglio

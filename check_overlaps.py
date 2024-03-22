@@ -1,7 +1,13 @@
 import openpyxl
 import json
+import paths
+import os
 
-with open('/home/mattchen2/Tutor-Availability/data/caselle_excel_laboratori.json') as f:
+root_path = paths.ROOT_DIR
+tmp_path = paths.TMP_DIR
+data_path = paths.DATA_DIR
+
+with open(os.path.join(root_path, data_path, 'caselle_excel_laboratori.json')) as f:
     caselle = json.load(f)
 
 def check_overlaps(file_path, lab_group):
@@ -49,7 +55,7 @@ def check_overlaps(file_path, lab_group):
     print(report)
 
     # Salva il report in un file di testo
-    report_file = "/home/mattchen2/Tutor-Availability/" + "report.txt"
+    report_file =  os.path.join(root_path, tmp_path, "report.txt")
     with open(report_file, "w") as f:
         f.write(report)
     return report_file

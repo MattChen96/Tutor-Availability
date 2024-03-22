@@ -8,3 +8,4 @@ report.txt
 __pycache__/
 .idea/
 
+tmp/
