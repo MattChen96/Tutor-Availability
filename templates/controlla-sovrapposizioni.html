@@ -95,6 +95,35 @@
       }
     });
   });
+
+  document.addEventListener('DOMContentLoaded', function () {
+  // Funzione per controllare se il modulo può essere inviato
+      function validateForm() {
+        var fileInput = document.getElementById('file_xlsx');
+
+        // Controllo se il file è stato caricato
+        if (fileInput.files.length === 0) {
+          alert('Si prega di selezionare un file Excel.');
+          return false;
+        }
+
+        // Se il controllo passa, il modulo può essere inviato
+        return true;
+      }
+
+      // Aggiungi un gestore agli eventi per il submit del modulo
+      var form = document.querySelector('form');
+      form.addEventListener('submit', function (event) {
+        // Prevent default form submission
+        event.preventDefault();
+
+        // Esegui la funzione di validazione prima di inviare il modulo
+        if (validateForm()) {
+          // Se la validazione passa, invia il modulo
+          form.submit();
+        }
+      });
+    });
   </script>
 
 </body>

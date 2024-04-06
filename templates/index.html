@@ -160,6 +160,45 @@
       }
     }
   });
+
+
+  // Codice JavaScript per la validazione del modulo
+  document.addEventListener('DOMContentLoaded', function () {
+    // Funzione per controllare se il modulo può essere inviato
+    function validateForm() {
+      var fileInput = document.getElementById('file_csv');
+      var startDateInput = document.getElementById('start_date');
+      var endDateInput = document.getElementById('end_date');
+
+      // Controllo se il file è stato caricato
+      if (fileInput.files.length === 0) {
+        alert('Si prega di selezionare un file CSV.');
+        return false;
+      }
+
+      // Controllo se entrambe le date sono state selezionate
+      if (!startDateInput.value || !endDateInput.value) {
+        alert('Si prega di selezionare entrambe le date.');
+        return false;
+      }
+
+      // Se entrambi i controlli passano, il modulo può essere inviato
+      return true;
+    }
+
+    // Aggiungi un gestore agli eventi per il submit del modulo
+    var form = document.querySelector('form');
+    form.addEventListener('submit', function (event) {
+      // Prevent default form submission
+      event.preventDefault();
+
+      // Esegui la funzione di validazione prima di inviare il modulo
+      if (validateForm()) {
+        // Se la validazione passa, invia il modulo
+        form.submit();
+      }
+    });
+  });
   </script>
 
 </body>
