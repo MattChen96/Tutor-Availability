@@ -32,6 +32,7 @@ def home():
         end_date = request.form['end_date']
         file_csv = request.files['file_csv']
 
+
         # Elaborare il range di date inserito dall'utente
         start_date = datetime.strptime(start_date, '%d/%m/%Y')
 
@@ -40,6 +41,9 @@ def home():
         date_list = pd.date_range(start_date, end_date).strftime('%d/%m/%Y').tolist()
 
         df = pd.read_csv(file_csv)
+        csv_filename = "file_csv_disponibilità.csv"
+        csv_path = os.path.join(root_path, tmp_path, csv_filename)
+        df.to_csv(csv_path, index=True)
 
         # Elaborare il file Excel caricato dall'utente
         for data in date_list:
@@ -57,7 +61,7 @@ def home():
 
 @app.after_request
 def delete_file(response):
-    file_path_output = os.path.join(root_path, "output.xlsx")
+    file_path_output = os.path.join(root_path, tmp_path, "output.xlsx")
     if os.path.exists(file_path_output):
         try:
             os.remove(file_path_output)
@@ -126,13 +130,12 @@ def controlla_sovrapposizioni():
         # Leggere i dati inseriti dall'utente
         gruppo = request.form.get('gruppo')
         file = request.files['file_xlsx']
-        file.save(os.path.join(root_path, tmp_path, 'sovrapposizioni_file.xlsx'))
+        file.save(os.path.join(root_path, tmp_path, 'excel_orari_for_sovrapposizioni.xlsx'))
 
         # Controllo delle sovrapposizioni e generazione del report
         report_file = check_overlaps(file, gruppo)
 
         app.logger.info(f"Scaricato il report: report_{gruppo}.txt")
-
         # Invia il report come file di testo al client
         return send_file(report_file, as_attachment=True, download_name=f"report_{gruppo}.txt", mimetype='text/plain')
 
@@ -146,16 +149,16 @@ def crea_excel_aperture():
         # Leggere i dati inseriti dall'utente
         gruppo = request.form.get('gruppo')
         file = request.files['file_xlsx']
-        file.save(os.path.join(root_path, tmp_path, 'aperture_file.xlsx'))
+        file.save(os.path.join(root_path, tmp_path, 'excel_orari_for_aperture.xlsx'))
 
         print(gruppo)
 
-        # Controllo delle sovrapposizioni e generazione del report
-        file_aperture = create_aperture_excel(file, gruppo)
+        # Creazione excel delle aperture
+        file_aperture_path = create_aperture_excel(file, gruppo)
 
         app.logger.info(f"Scaricato file delle aperture: aperture_{gruppo}.xlsx")
 
-        return send_file(file_aperture, as_attachment=True, download_name=f"aperture_{gruppo}.xlsx", mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+        return send_file(file_aperture_path, as_attachment=True, download_name=f"aperture_{gruppo}.xlsx", mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
 
     return render_template('crea-excel-aperture.html', lab_groups=lista_edifici)
 

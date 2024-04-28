@@ -38,17 +38,21 @@ def create_aperture_excel(file_path, lab_group):
         for l in range(4, 9):  # Colonne D a H
             indice = tuple_lab[0][1]
             for i in range(lab_index, lab_index + 20):
+                if  ws.cell(row=i, column=l).value is not None and ws.cell(row=i, column=l).value != "" :
+                    print(ws.cell(row=i, column=l).value)
+                    print(ws.cell(row=i, column=l).fill.start_color.index)
                 #effettuo 3 controlli:
                 #1. la cella non è vuota,
                 #2. è presente una scritta
                 #3.la casella non è colorata (il codice colore non inizia con FF) oppure è bianca (codice colore FFFFFFFF/0/00000000)
-                if (ws.cell(row=i, column=l).value is not None
-                            and ws.cell(row=i, column=l).value != ""
-                            and (ws.cell(row=i, column=l).fill.start_color.index in ['FFFFFFFF', 0 , 00000000] or (not ws.cell(row=i, column=l).fill.start_color.index.startswith('FF')) )):
+                cell = ws.cell(row=i, column=l)
+                cell_color = str(cell.fill.start_color.index)
+
+                if (cell.value is not None and cell.value != "" and (cell_color in ['FFFFFFFF', '0', '00000000'] and not cell_color.startswith('FF'))):
 
                     if ws_aperture.cell(row=indice, column=l).value is None:    #se la casella è vuota inserisco il nome
                         lista_lab = lab_name[3:]
-                    else:                                                       #se la casella c'era già un nome lo concateno
+                    else:                                                       #se nella casella c'era già un nome lo concateno
                         lista_lab = ws_aperture.cell(row=indice, column=l).value + "/" + lab_name[3:]
 
                     ws_aperture.cell(row=indice, column=l, value=lista_lab)
@@ -56,7 +60,7 @@ def create_aperture_excel(file_path, lab_group):
                 indice+=1
 
     file_name = f"aperture_{lab_group}.xlsx"
-    excel_file = os.path.join(root_path, tmp_path, file_name)
-    wb.save(excel_file)
+    excel_file_path = os.path.join(root_path, tmp_path, file_name)
+    wb.save(excel_file_path)
 
-    return excel_file
+    return excel_file_path
