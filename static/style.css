@@ -1,105 +1,226 @@
-.calendar {
-    display: inline-block;
-    position: relative;
+/* Importazione font Google */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
 }
 
-.calendar input[type="date"] {
-    width: 200px;
-    height: 40px;
+/* Corpo della pagina */
+body {
+    background-color: #f4f7fc;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+/* ✅ DASHBOARD */
+.dashboard {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #007BFF;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+/* Stile titolo */
+.dashboard h1 {
+    color: white;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+/* Contenitore pulsanti */
+.dashboard nav {
+    display: flex;
+    gap: 10px;
+}
+
+/* Pulsanti dashboard */
+.dashboard button {
     font-size: 16px;
-    padding: 10px;
+    font-weight: bold;
+    color: white;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
     border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.dashboard button:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Bottone attivo */
+.dashboard button.active {
+    background-color: white;
+    color: #007BFF;
+}
+
+/* ✅ STRUTTURA PRINCIPALE */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Titolo principale */
+h1 {
+    text-align: center;
+    color: #0056b3;
+    margin-bottom: 20px;
+}
+
+/* ✅ FORM */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Campi del form */
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
     border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.3s ease-in-out;
+}
+
+input:focus, select:focus {
+    border-color: #007BFF;
+    outline: none;
+}
+
+/* ✅ CALENDARIO */
+.calendar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.calendar input {
+    width: 100%;
+    padding-right: 40px;
 }
 
 .calendar .icon {
     position: absolute;
-    top: 0;
-    right: 0;
-    height: 100%;
-    width: 50px;
-    text-align: center;
-    pointer-events: none;
-}
-
-.calendar .icon:before {
-    content: "\f073";
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-    font-size: 20px;
-    line-height: 40px;
-    color: #666;
-}
-
-.dashboard {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 50px;
-    background-color: #ccc;
-    padding: 0 20px;
-}
-
-/* stile per i bottoni della dashboard */
-.dashboard button {
+    right: 10px;
+    color: #007BFF;
     font-size: 18px;
-    font-weight: bold;
-    color: #fff;
-    background-color: #333;
+}
+
+/* Aggiungi margine tra i campi "Da" e "A" */
+.calendar {
+    margin-bottom: 15px; /* Aggiungi uno spazio sotto ogni calendario */
+}
+
+.calendar input {
+    margin-right: 10px; /* Aggiungi un po' di spazio tra i campi "Da" e "A" */
+}
+
+/* ✅ DROPZONE (Caricamento file) */
+.dropzone {
+    border: 2px dashed #007BFF;
+    background-color: #f8f9fa;
+    padding: 20px;
+    text-align: center;
+    color: #007BFF;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.dropzone:hover {
+    background-color: #e3f2fd;
+}
+
+.dropzone i {
+    font-size: 28px;
+    margin-bottom: 5px;
+    display: block;
+}
+
+/* ✅ PULSANTE INVIO */
+input[type="submit"] {
+    background-color: #007BFF;
+    color: white;
+    padding: 12px;
+    font-size: 16px;
     border: none;
     border-radius: 5px;
-    padding: 10px 20px;
     cursor: pointer;
-    margin-right: 10px;
-}
-/* stile per il link attivo nella dashboard */
-.dashboard button.active {
-    background-color: #666;
+    transition: background 0.3s ease;
 }
 
-
-.container {
-  text-align: center;
+input[type="submit"]:hover {
+    background-color: #0056b3;
 }
 
-.dropzone {
-  border: 2px dashed #999;
-  padding: 20px;
-  cursor: pointer;
-  display: inline-block;
-  width: 300px; /* Larghezza desiderata */
-  height: 200px; /* Altezza desiderata */
+/* ✅ CONSIGLI BOX */
+.consigli-box {
+    background-color: #eef4ff;
+    padding: 15px;
+    border-left: 4px solid #007BFF;
+    margin-top: 20px;
+    border-radius: 5px;
 }
 
-.dropzone.dragover {
-  background-color: #f1f1f1;
+.consigli-box h2 {
+    color: #0056b3;
+    margin-bottom: 10px;
 }
 
-.file-input-label {
-  font-size: 18px;
+.consigli-box ul {
+    list-style-type: square;
+    margin-left: 20px;
 }
 
+/* ✅ RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+    .dashboard {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
 
-.guida-csv {
-  position: relative;
-  display: inline-block;
+    .dashboard nav {
+        margin-top: 10px;
+    }
+
+    .container {
+        padding: 15px;
+    }
+
+    input, select {
+        font-size: 14px;
+    }
+
+    .dropzone {
+        padding: 15px;
+    }
 }
 
-.guida-csv::before {
-  content: ""; /* Contenuto vuoto necessario per aggiungere l'immagine */
-  background-image: url('images/come_scaricare_in_csv.png'); /* Percorso dell'immagine (assicurati che sia un'immagine di dimensioni più grandi) */
-  background-size: cover;
-  position: absolute;
-  top: -40px; /* Regola la posizione verticale dell'immagine */
-  left: -20px; /* Regola la posizione orizzontale dell'immagine */
-  right: -65px;
-  bottom: -70px;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out; /* Aggiungi la transizione per la dimensione */
-  transform: scale(1);
-}
-
-.guida-csv:hover::before {
-  opacity: 1; /* Mostra l'immagine solo quando l'elemento con classe "guida-csv" è in hover */
-  transform: scale(2); /* Regola la scala per ingrandire l'immagine */
-}
